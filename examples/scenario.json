@@ -1,0 +1,9 @@
+{
+  "url": "http://127.0.0.1:4317/fixture",
+  "instant": "2026-11-01T05:59:00Z",
+  "zones": ["America/New_York", "Asia/Shanghai", "UTC"],
+  "actions": [
+    {"type": "advance", "ms": 60000},
+    {"type": "expect", "selector": "#count", "value": "60"}
+  ]
+}

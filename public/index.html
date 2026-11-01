@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><meta name="color-scheme" content="dark" /><title>
+    TimeTrap — 时间边界实验室</title
+  ><link rel="stylesheet" href="/style.css" />
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="TimeTrap 首页"
+        ><svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path
+            d="M7 4h18M7 28h18M9 4c0 7 4 8 7 12-3 4-7 5-7 12M23 4c0 7-4 8-7 12 3 4 7 5 7 12"
+            stroke="currentColor"
+            stroke-width="2"
+          /></svg
+        ><b>TimeTrap</b></a
+      >
+      <nav class="tabs" aria-label="实验模式">
+        <button class="active" data-tab="lab">平行实验 <small>01</small></button
+        ><button data-tab="cases">案例档案 <small>02</small></button>
+      </nav>
+      <div class="header-right"><button id="motion-toggle" class="motion-toggle" aria-pressed="true" aria-label="暂停动效"><span class="motion-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="motion-text">动效开启</span></button><span class="local"><i></i> 本地引擎 <small>v0.1.1</small></span></div>
+    </header>
+    <main>
+      <section class="hero hero-v2">
+ <div class="hero-copy"><p class="eyebrow"><span class="live-line"></span> THE EDGE OF TIME / 001</p><h1><span class="title-line">时间有裂缝。</span><span class="title-line silver">提前看见它。</span></h1><p class="hero-description">当昨天多了一小时，当下一分钟回到过去。<br>让你的网站提前经历边界，留下可重现的证据。</p><button id="demo" class="demo-cta"><span>启动一次时间实验</span><span class="cta-arrow">↗</span></button><div class="hero-footnote"><span>01 — 平行时区</span><span>02 — 真实捕获</span><span>03 — 复现证据</span></div></div>
+ <div class="time-sculpture" id="time-sculpture"><div class="sculpture-grid" aria-hidden="true"></div><div class="sculpture-heading"><span>TIME DISCONTINUITY</span><span class="preview-indicator">交互预演 · 10×</span></div><div class="sculpture-date"><span>NOV 01, 2026</span><span id="preview-iso">05:59:00 UTC</span></div><div class="time-channels">
+ <div class="time-channel primary-channel"><div class="channel-label"><span>01</span><b>NEW YORK</b><small id="preview-offset">UTC−04</small></div><div class="channel-clock"><span id="preview-ny">01:59:00</span><i class="clock-reflection" aria-hidden="true"></i></div><div class="channel-track"><i></i><span>01:59</span><span class="boundary-label">DST BOUNDARY</span><span>01:00</span></div></div>
+ <div class="time-channel"><div class="channel-label"><span>02</span><b>SHANGHAI</b><small>UTC+08</small></div><div class="channel-clock" id="preview-sh">13:59:00</div></div>
+ <div class="time-channel"><div class="channel-label"><span>03</span><b>UTC</b><small>UTC±00</small></div><div class="channel-clock" id="preview-utc">05:59:00</div></div></div>
+ <div class="preview-controls"><label for="preview-scrub">拖动，跨过这一分钟 <span>↔</span></label><input id="preview-scrub" type="range" min="0" max="120" value="0" aria-label="夏令时预演时间，0 至 120 秒"><div><span>01:59</span><span>回拨点</span><span>01:01</span></div></div><p class="preview-note"><span id="preview-phase">同一个瞬间，三种本地时间。</span><small>预演不改变下方实验</small></p></div>
+</section><div class="section-divider"><span>THE LAB</span><span>先看见，再验证。</span><span>SCROLL TO EXPLORE ↓</span></div>
+      <section id="lab">
+        <div class="workspace-heading">
+          <h2><span class="section-index">01</span> 实验工作台</h2>
+          <p>同一个瞬间，不同的本地时间。</p>
+          <button id="export" class="export">导出复现包 <span>↓</span></button>
+        </div>
+        <div class="workspace">
+          <aside class="configuration">
+            <details id="config-details" open>
+              <summary class="panel-heading">
+                <span>实验配置</span><small>CONFIGURATION ＋</small>
+              </summary>
+              <div class="config-body">
+                <div class="field">
+                  <label for="url">目标页面 <span>01</span></label
+                  ><input
+                    id="url"
+                    type="url"
+                    placeholder="http://localhost:3000"
+                  />
+                  <p class="hint">独立浏览器环境，支持本地开发地址。</p>
+                </div>
+                <div class="field">
+                  <label for="instant">起始瞬间 <span>02</span></label
+                  ><input id="instant" value="2026-11-01T05:59:00Z" />
+                  <p class="hint">ISO 时间，带 Z 或 UTC 偏移。</p>
+                </div>
+                <div class="field">
+                  <label for="zones">平行时区 <span>03</span></label
+                  ><textarea id="zones" rows="3">
+America/New_York
+Asia/Shanghai
+UTC</textarea>
+                  <p class="hint">每行一个 IANA 时区，最多 4 个。</p>
+                </div>
+                <button id="start" class="primary">
+                  启动实验 <span>↗</span>
+                </button>
+                <div class="presets">
+                  <p class="eyebrow">QUICK JUMP / 边界预设</p>
+                  <button data-preset="fall">
+                    纽约时钟回拨 <span>−1h</span></button
+                  ><button data-preset="spring">
+                    纽约跳过一小时 <span>+1h</span></button
+                  ><button data-preset="year">跨年 <span>12.31</span></button
+                  ><button data-preset="leap">闰日 <span>02.29</span></button>
+                </div>
+                <div class="config-note">
+                  <span>◈</span>
+                  <p>系统时钟保持不变。<br />所有变化发生在实验浏览器内。</p>
+                </div>
+              </div>
+            </details>
+          </aside>
+          <div class="stage">
+            <div class="toolbar">
+              <div class="time-controls">
+                <span class="toolbar-label">时间控制</span
+                ><button data-advance="60000" title="推进定时器 1 分钟">
+                  + 1 分钟</button
+                ><button data-advance="3600000" title="推进定时器 1 小时">
+                  + 1 小时</button
+                ><button id="jump">跳至输入时间 ↗</button>
+              </div>
+              <span class="stage-badge">CHROMIUM / LIVE CAPTURE</span>
+            </div>
+            <div class="timeline">
+              <div class="timeline-head">
+                <label for="timeline"
+                  >时间滑轨 <span>仅改变时钟，不补跑定时器</span></label
+                ><output id="timeline-label">T + 0 min</output>
+              </div>
+              <div class="range-wrap">
+                <input
+                  id="timeline"
+                  type="range"
+                  min="-120"
+                  max="120"
+                  value="0"
+                />
+              </div>
+              <div class="range-labels">
+                <span>− 120 MIN</span><span>起始瞬间</span
+                ><span>+ 120 MIN</span>
+              </div>
+            </div>
+            <div id="status" role="status" aria-live="polite">
+              准备就绪。启动实验，或点击上方「启动一次时间实验」。
+            </div>
+            <div id="worlds" class="worlds">
+              <div class="empty">
+                <div class="empty-graphic" aria-hidden="true">
+                  <div>
+                    <span>NEW YORK</span><b>01:59</b><small>— — —</small>
+                  </div>
+                  <span class="empty-arrow">→</span>
+                  <div>
+                    <span>ONE MINUTE LATER</span><b>01:00</b
+                    ><small>时钟回拨 / 示例</small>
+                  </div>
+                </div>
+                <h2>下一分钟，也可能回到过去。</h2>
+                <p>启动实验，观察真实页面怎样跨过时间边界。</p>
+                <span class="empty-meta"
+                  >ISOLATED CONTEXTS <i>·</i> LOCAL EXECUTION</span
+                >
+              </div>
+            </div>
+            <div id="downloads"></div>
+            <details class="scope-detail">
+              <summary>实验范围与判定方式 <span>＋</span></summary>
+              <p class="scope">
+                控制主页面 Date
+                与定时器。推进会触发定时器，跳转只改变时钟。服务器时间、真实 API
+                过期、浏览器证书和跨域子框架不在本版验证范围。截图不同本身不代表存在
+                Bug；正确性需要明确的预期。
+              </p>
+            </details>
+          </div>
+        </div>
+        <section class="actions">
+          <div class="action-intro">
+            <p class="eyebrow">FROM OBSERVATION TO PROOF.</p>
+            <h2>留下证据。<br /><span>让问题可以重现。</span></h2>
+            <p>
+              操作同步到所有时区。加入文字断言，<br />把一次观察变成真正可运行的测试。
+            </p>
+            <div class="step-indicator">
+              <span>01 选择元素</span><i>→</i><span>02 定义预期</span><i>→</i
+              ><span>03 导出</span>
+            </div>
+          </div>
+          <div class="action-form">
+            <div class="panel-heading">
+              <span>记录操作</span><small>RECORDER</small>
+            </div>
+            <div class="recorder-body">
+              <label for="selector">元素选择器</label
+              ><input
+                id="selector"
+                placeholder="#date 或 [data-testid=total]"
+              /><label for="value">填写内容 / 预期完整文字</label
+              ><input id="value" placeholder="例如：2017-09-10" />
+              <div class="action-buttons">
+                <button data-action="click">点击元素</button
+                ><button data-action="fill">填写元素</button
+                ><button data-action="expect">添加文字断言 ↗</button>
+              </div>
+              <p class="hint">精确文字匹配。没有断言的截图仅表示观察记录。</p>
+            </div>
+          </div>
+        </section>
+        <div id="log" class="log"></div>
+      </section>
+      <section id="cases" hidden>
+        <div class="case-intro">
+          <span class="eyebrow">THE FAILURE ARCHIVE</span>
+          <h2>时间留下的，<br /><span>三个真实教训。</span></h2>
+          <p>
+            两份历史源码函数，一份按报告重建的集成用法。<br />每次执行都在真实浏览器中运行，保留
+            UTC 作为对照。
+          </p>
+        </div>
+        <p id="case-status" role="status" aria-live="polite"></p>
+        <div id="case-list"></div>
+      </section>
+      <footer>
+        <a href="/" class="footer-wordmark">TimeTrap</a>
+        <div>
+          <span>Make time bugs reproducible.</span
+          ><small>LOCAL FIRST / NO API KEY / 2026</small>
+        </div>
+        <span class="footer-symbol">↗</span>
+      </footer>
+    </main>
+    <dialog id="zoom">
+      <button id="closezoom">关闭预览 ×</button><img alt="实验页面完整截图" />
+    </dialog>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "timetrap-local",
+  "version": "0.1.1",
+  "private": true,
+  "description": "Put your website through time traps. Local browser time and timezone lab.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/server.mjs && node --check src/engine.mjs && node --check public/app.js",
+    "test:browser": "node tests/browser.mjs",
+    "cases": "node src/cli.mjs cases"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "playwright": "^1.64.1"
+  }
+}
